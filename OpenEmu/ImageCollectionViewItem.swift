@@ -24,9 +24,11 @@
 
 import Cocoa
 
-class CollectionViewItem: NSCollectionViewItem {
+class ImageCollectionViewItem: NSCollectionViewItem {
     
     var selectionLayer: CALayer?
+    
+    @IBOutlet var subtitleField: NSTextField?
     
     var imageFile: ImageFile? {
         didSet {
@@ -41,8 +43,6 @@ class CollectionViewItem: NSCollectionViewItem {
             }
         }
     }
-    
-    
     
     override var highlightState: NSCollectionViewItem.HighlightState {
         didSet {
@@ -102,5 +102,15 @@ class CollectionViewItem: NSCollectionViewItem {
             sel.removeFromSuperlayer()
             selectionLayer = nil
         }
+    }
+}
+
+extension ImageCollectionViewItem: QLPreviewItem {
+    var previewItemURL: URL! {
+        return imageFile?.url
+    }
+    
+    var previewItemTitle: String! {
+        return imageFile?.fileName
     }
 }
